@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="carmodel">
+
+    <!-- creatin macros so that we don't need assign the values again and again -->
+    <xacro:property name="box_length" value="0.184" />
+    <xacro:property name="box_breadth" value="0.08" />
+    <xacro:property name="box_height" value="0.044" />
+    <xacro:property name="cylinder_length" value="0.012" />
+    <xacro:property name="cylinder_radius" value="0.014" />
+
+    <!-- this is the base link of the model where we attached the gazebo pluging -->
+    <link name="robot_footprint"></link>
+
+    <joint name="robot_footprint_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="robot_footprint"/>
+        <child link="body_link" />
+    </joint>
+
+    <link name="body_link">
+        <visual>
+            <geometry>
+                <box size="${box_length} ${box_breadth} ${box_height}"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0.036"/>
+            <material name="yellow">
+                <color rgba="1 1 0 0.7"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="${box_length} ${box_breadth} ${box_height}"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0.036"/>
+        </collision>
+        <inertial>
+            <mass value="0.15"/>
+            <inertia ixx="0.000446" ixy="0.0" ixz="0.0" iyy="0.000104" iyz="0.0" izz="0.000501"/>
+        </inertial>
+    </link>
+
+    <joint name="car_wheel1_joint" type="continuous">
+        <parent link="body_link"/>
+        <child link="car_wheel1_link"/>
+        <axis xyz="0 1 0"/>
+        <origin xyz="0.048 0.046 0.014"/>
+    </joint>
+
+    <link name="car_wheel1_link">
+        <visual>
+            <geometry>
+                <cylinder length="${cylinder_length}" radius="${cylinder_radius}"/>
+            </geometry>
+            <origin rpy="1.57075 1.57075 0" xyz="0 0 0"/>
+            <material name="red">
+                <color rgba="1 0 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="${cylinder_length}" radius="${cylinder_radius}"/>
+            </geometry>
+            <origin rpy="1.57075 1.57075 0" xyz="0 0 0"/>
+        </collision>
+        <inertial>
+            <mass value="0.02"/>
+            <inertia ixx="0.0000012" ixy="0.0" ixz="0.0" iyy="0.0000012" iyz="0.0" izz="0.0000059"/>
+        </inertial>
+    </link>
+
+    <joint name="car_wheel2_joint" type="continuous">
+        <parent link="body_link"/>
+        <child link="car_wheel2_link"/>
+        <axis xyz="0 1 0"/>
+        <origin xyz="0.048 -0.046 0.014"/>
+    </joint>
+
+    <link name="car_wheel2_link">
+        <visual>
+            <geometry>
+                <cylinder length="${cylinder_length}" radius="${cylinder_radius}"/>
+            </geometry>
+            <origin rpy="1.57075 1.57075 0" xyz="0 0 0"/>
+            <material name="red">
+                <color rgba="1 0 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="${cylinder_length}" radius="${cylinder_radius}"/>
+            </geometry>
+            <origin rpy="1.57075 1.57075 0" xyz="0 0 0"/>
+        </collision>
+        <inertial>
+            <mass value="0.02"/>
+            <inertia ixx="0.0000012" ixy="0.0" ixz="0.0" iyy="0.0000012" iyz="0.0" izz="0.0000059"/>
+        </inertial>
+    </link>
+
+    <joint name="car_wheel3_joint" type="continuous">
+        <parent link="body_link"/>
+        <child link="car_wheel3_link"/>
+        <axis xyz="0 1 0"/>
+        <origin xyz="-0.06 -0.046 0.014"/>
+    </joint>
+
+    <link name="car_wheel3_link">
+        <visual>
+            <geometry>
+                <cylinder length="${cylinder_length}" radius="${cylinder_radius}"/>
+            </geometry>
+            <origin rpy="1.57075 1.57075 0" xyz="0 0 0"/>
+            <material name="red">
+                <color rgba="1 0 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="${cylinder_length}" radius="${cylinder_radius}"/>
+            </geometry>
+            <origin rpy="1.57075 1.57075 0" xyz="0 0 0"/>
+        </collision>
+        <inertial>
+            <mass value="0.02"/>
+            <inertia ixx="0.0000012" ixy="0.0" ixz="0.0" iyy="0.0000012" iyz="0.0" izz="0.0000059"/>
+        </inertial>
+    </link>
+
+    <joint name="car_wheel4_joint" type="continuous">
+        <parent link="body_link"/>
+        <child link="car_wheel4_link"/>
+        <axis xyz="0 1 0"/>
+        <origin xyz="-0.06 0.046 0.014"/>
+    </joint>
+
+    <link name="car_wheel4_link">
+        <visual>
+            <geometry>
+                <cylinder length="${cylinder_length}" radius="${cylinder_radius}"/>
+            </geometry>
+            <origin rpy="1.57075 1.57075 0" xyz="0 0 0"/>
+            <material name="red">
+                <color rgba="1 0 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="${cylinder_length}" radius="${cylinder_radius}"/>
+            </geometry>
+            <origin rpy="1.57075 1.57075 0" xyz="0 0 0"/>
+        </collision>
+        <inertial>
+            <mass value="0.02"/>
+            <inertia ixx="0.0000012" ixy="0.0" ixz="0.0" iyy="0.0000012" iyz="0.0" izz="0.0000059"/>
+        </inertial>
+    </link>
+
+    <!-- including the pluging file as a macro here -->
+    <xacro:include filename="$(find rc_car_pkg)/gazebo/carmodel.gazebo" />
+
+</robot>

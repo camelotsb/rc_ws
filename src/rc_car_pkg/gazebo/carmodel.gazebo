@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- GAZEBO MODEL PLUGIN that provides a basic controller for skid steering drive robots in Gazebo (Pioneer 3AT for instance) -->
+<!-- WARNING- DO NOT ADD ANY COMMENT BEFORE <?xml version> tag -->
+<robot>
+  <gazebo>
+    <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+      <updateRate>10.0</updateRate>
+      <robotNamespace>/</robotNamespace>
+      <leftFrontJoint>car_wheel1_joint</leftFrontJoint>
+      <rightFrontJoint>car_wheel2_joint</rightFrontJoint>
+      <leftRearJoint>car_wheel4_joint</leftRearJoint>
+      <rightRearJoint>car_wheel3_joint</rightRearJoint>
+      <wheelSeparation>0.096</wheelSeparation>
+      <wheelDiameter>0.028</wheelDiameter>
+      <robotBaseFrame>robot_footprint</robotBaseFrame>
+      <torque>10</torque>
+      <topicName>cmd_vel</topicName>
+      <broadcastTF>false</broadcastTF>
+    </plugin>
+  </gazebo>
+</robot>

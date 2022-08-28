@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This launch file is to launch the xacro model of the car which is in urdf folder of this ROS package-->
+<launch>
+	<arg name="carmodel" />
+	<param name="robot_description" command="$(find xacro)/xacro $(find rc_car_pkg)/xacro/carmodel.xacro" />
+	<!--Attaching the xacro model of the car by giving the path.-->
+	<!--If you are going to change the name of the package(rc_car_pkg) or the path of xacro files kindly update it here also-->
+	<node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui"/>
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find rc_car_pkg)/default.rviz" required="true"/>
+	<!-- Configuring some of the displays with the help of default.rviz file -->
+	<arg name="x" default="0"/>
+	<arg name="y" default="0"/>
+	<arg name="z" default="0"/>
+	<arg name="roll" default="0"/>
+	<arg name="pitch" default="0"/>
+	<arg name="yaw" default="0"/>
+	<arg name="world_file" default="$(find rc_car_pkg)/world/empty.world"/>
+	<!-- Tagging the world file for gazebo and naming it as "world_file". You can change it as per your need by adding  -->
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="use_sim_time" value="true"/>
+		<arg name="verbose" value="false"/>
+		<arg name="debug" value="false"/>
+		<arg name="gui" value="true" />
+		<arg name="world_name" value="$(arg world_file)"/>
+	</include>
+	<node name="rccar_gaz" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model car_model -param robot_description 
+    -x $(arg x) -y $(arg y) -z $(arg z)
+	-R $(arg roll) -P $(arg pitch) -Y $(arg yaw)" />
+</launch>
