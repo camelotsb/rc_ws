@@ -31,6 +31,7 @@ if __name__ == '__main__':
     
     
     try:
+        r = rospy.Rate(10)
         while not rospy.is_shutdown():
             if acc_state.data == 0 :
                 delt=(rospy.Time.now()-t0).to_sec()
@@ -41,8 +42,17 @@ if __name__ == '__main__':
 
 
             else:
-                print("setting acc =",acc_state)
-                set_acc_pub.publish(acc_state)
+                if acc_state.data == 1 :
+                    print("setting acc =",acc_state)
+                    set_acc_pub.publish(1)
+                elif acc_state.data == -1 :
+                    print("setting acc =",acc_state)
+                    set_acc_pub.publish(-1)
+
+            r.sleep()
+
+                    
+                
         rospy.spin()
         
                    

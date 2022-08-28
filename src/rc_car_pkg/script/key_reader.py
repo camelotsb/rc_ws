@@ -7,7 +7,7 @@ import time
 import rospy
 #ros msgs
 from std_msgs.msg import Int32
-from std_msgs.msg import String
+# from std_msgs.msg import String
 
 
 def getTerminalSettings():
@@ -30,7 +30,7 @@ def readKey(settings):
 rospy.init_node('rc_control',anonymous=True)
 
 rc_front_back_pub= rospy.Publisher('/front_back_selec',Int32,queue_size=20)
-rc_dir_pub= rospy.Publisher('/dir_selection',String,queue_size=20)
+rc_dir_pub= rospy.Publisher('/dir_selection',Int32,queue_size=20)
 
 if __name__ == '__main__':
 
@@ -57,13 +57,13 @@ if __name__ == '__main__':
                 print("acc published ",0)
             
             if key=='d':
-                rc_dir_pub.publish('r')
+                rc_dir_pub.publish(6)
                 print(key," is pressed")
             elif key=='a':
-                rc_dir_pub.publish('l')
+                rc_dir_pub.publish(4)
                 print(key," is pressed")
             else:
-                rc_dir_pub.publish('\0')
+                rc_dir_pub.publish(5)
                 print("none is pressed")
             
             if key=='p':
